@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { TextField, Button, FormControl, InputLabel, Select, MenuItem, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 
 export default function SearchForm({ onSubmit }) {
-  const [query, setQuery] = useState("");
-  const [sortOption, setSortOption] = useState("views");
-  const [sortOrder, setSortOrder] = useState("desc");
-  const [includeShorts, setIncludeShorts] = useState(false);
+  const [query, setQuery] = useState('');
+  const [sortOption, setSortOption] = useState('views');
+  const [sortOrder, setSortOrder] = useState('desc');
 
   function handleSubmit(event) {
     event.preventDefault();
-    onSubmit(query, sortOption, sortOrder, includeShorts);
+    onSubmit(query, sortOption, sortOrder);
   }
 
   function handleSortOptionChange(event) {
@@ -19,66 +19,30 @@ export default function SearchForm({ onSubmit }) {
     setSortOrder(event.target.value);
   }
 
-  function handleIncludeShortsChange(event) {
-    setIncludeShorts(event.target.checked);
-  }
-
   return (
     <form onSubmit={handleSubmit}>
-      <div className="input-group mb-3">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Search videos"
-          aria-label="Search videos"
-          aria-describedby="button-search"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-        <button className="btn btn-primary" type="submit" id="button-search">
-          Search
-        </button>
-      </div>
-      <div className="mb-4">
-        <label>
-          Sort by:
-          <select value={sortOption} onChange={handleSortOptionChange}>
-            <option value="views">Views</option>
-            <option value="subscribers">Subscribers</option>
-            <option value="publishedDate">Published Date</option>
-            <option value="name">Name</option>
-          </select>
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="sortOrder"
-            value="desc"
-            checked={sortOrder === "desc"}
-            onChange={handleSortOrderChange}
-          />
-          Descending
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="sortOrder"
-            value="asc"
-            checked={sortOrder === "asc"}
-            onChange={handleSortOrderChange}
-          />
-          Ascending
-        </label>
-      </div>
-      <div className="mb-4">
-        <label>
-          <input
-            type="checkbox"
-            checked={includeShorts}
-            onChange={handleIncludeShortsChange}
-          />
-          Include shorts
-        </label>
+      <TextField
+        label="Search videos"
+        variant="outlined"
+        size="small"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+      />
+      <Button variant="contained" color="primary" type="submit">Search</Button>
+      <div>
+        <FormControl size="small">
+          <InputLabel>Sort by</InputLabel>
+          <Select value={sortOption} onChange={handleSortOptionChange}>
+            <MenuItem value="views">Views</MenuItem>
+            <MenuItem value="subscribers">Subscribers</MenuItem>
+            <MenuItem value="publishedDate">Published Date</MenuItem>
+            <MenuItem value="name">Name</MenuItem>
+          </Select>
+        </FormControl>
+        <RadioGroup row value={sortOrder} onChange={handleSortOrderChange}>
+          <FormControlLabel value="desc" control={<Radio size="small" />} label="Descending" />
+          <FormControlLabel value="asc" control={<Radio size="small" />} label="Ascending" />
+        </RadioGroup>
       </div>
     </form>
   );

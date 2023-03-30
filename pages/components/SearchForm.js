@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem, RadioGroup, FormControlLabel, Radio } from '@mui/material';
-
 export default function SearchForm({ onSubmit }) {
   const [query, setQuery] = useState('');
   const [sortOption, setSortOption] = useState('views');

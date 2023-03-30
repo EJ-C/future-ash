@@ -4,6 +4,8 @@ import { useState } from 'react';
 import VideoTable from '/pages/components/VideoTable';
 import searchVideos from '/pages/utils/youtubeApi';
 import SearchForm from '/pages/components/SearchForm'; // Import the SearchForm component
+import { Box } from '@mui/material'; // import Box component from Material-UI
+
 
 export default function Home() {
   const [videos, setVideos] = useState([]);
@@ -15,10 +17,12 @@ export default function Home() {
 
   return (
     <div>
+    <Box display="flex" alignItems="center" justifyContent="space-between" >
       <Head>
         <title>YouTube Video Search</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+    </Box>
 
       <main>
         <h1>YouTube Video Search</h1>
